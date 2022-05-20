@@ -1,4 +1,5 @@
 ///<reference types="Cypress" />
+/// <reference types="cypress-xpath" />
 
 
 describe('TM Business Dashbaord Test', () => {
@@ -40,7 +41,7 @@ describe('TM Business Dashbaord Test', () => {
   it('Testing `search` bar in company tab', () => {
     cy.get('[data-testid="BusinessIcon"]').click();
     cy.get("input[placeholder='Search']").type("Taskmo Software");
-    cy.get('[style="width: 80%; color: rgb(0, 0, 0); border-bottom: none;"] > a').click({ multiple: true});
+    cy.get('[style="width: 80%; color: rgb(0, 0, 0); border-bottom: none;"] > a').click({ multiple: true });
     cy.go('back');
   })
 
@@ -50,7 +51,7 @@ describe('TM Business Dashbaord Test', () => {
     cy.get('.MuiGrid-container > .MuiButtonBase-root').click();
     cy.get('#demo-simple-select').click()
     cy.get('[data-value="Private Limited"]').click()
-    cy.get('#outlined-basic').type("L01631KA2010PTC096860");
+    cy.get('#outlined-basic').type("L01631KA2010PTC096878");
     cy.log("Succesfully clicked on company tab")
   })
 
@@ -62,18 +63,18 @@ describe('TM Business Dashbaord Test', () => {
     cy.get('[data-value="Private Limited"]').click()
     cy.get('#outlined-basic').type("L01631KA2010PTC096870");
     cy.get('.MuiInputBase-root > .MuiButtonBase-root').click();
-    cy.scrollTo('bottom',{ensureScrollable:false})
+    cy.scrollTo('bottom', { ensureScrollable: false })
     cy.get('.MuiGrid-justify-content-xs-flex-end > [type="submit"]').click()
   })
 
-  it('Testing `New company` by adding Company details', () => {
+  it.only('Testing `New company` by adding Company details', () => {
     //expect(true).to.equal(true)
 
     cy.get('[data-testid="BusinessIcon"]').click();
     cy.get('.MuiGrid-container > .MuiButtonBase-root').click();
     cy.get('#demo-simple-select').click()
     cy.get('[data-value="Private Limited"]').click()
-    cy.get('#outlined-basic').type("L01631KA2010PTC096880");
+    cy.get('#outlined-basic').type("L01631KA2010PTC09646");
     cy.get('.MuiInputBase-root > .MuiButtonBase-root').click();
     // const filepath = "images/razor pay.png"
     // cy.get('[data-testid="UploadIcon"] > path')
@@ -104,6 +105,88 @@ describe('TM Business Dashbaord Test', () => {
     cy.get('#menu-country > .MuiPaper-root > .MuiList-root > .MuiButtonBase-root').click();
     cy.get('.MuiGrid-justify-content-xs-flex-end > [type="submit"]').click();
     cy.log("Company created successfully")
+  })
+
+  it('Creating Diigital Project', () => {
+
+    cy.log("Adding New Digital project")
+    cy.log("STTEP 1: Adding Basic Details")
+    cy.xpath("//span[normalize-space()='Digital Projects']").click();
+    cy.get("button[type='submit']").click();
+    cy.xpath("(//div[@id='outlined-basic'])[1]").click({ force: true });
+    cy.get("div[id='menu-domain'] li:nth-child(2)").click();
+    cy.get(':nth-child(2) > :nth-child(1) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').click({ force: true });
+    cy.get('#menu-verticals > .MuiPaper-root > .MuiList-root > .MuiButtonBase-root').click({ force: true });
+    cy.get(':nth-child(2) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type('Brand Promoter')
+    cy.get(':nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root > .MuiOutlinedInput-root > #account_select')
+      .click({ force: true })
+    cy.get('#account_select-option-5').click();
+    cy.get(':nth-child(3) > .MuiAutocomplete-root > .MuiFormControl-root > .MuiOutlinedInput-root > #account_select').click();
+    cy.get('#account_select-option-0').click();
+    cy.get(':nth-child(3) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type('Bounce');
+    cy.get(':nth-child(4) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type('Bengaluru');
+    cy.get('.WAMuiChipInput-chipContainer-160 > .MuiInputBase-root > #outlined-basic').type('English');
+    cy.get('.MuiGrid-grid-sm-4 > .MuiGrid-root > .MuiButtonBase-root').click();
+
+    cy.log("STEP 2: Add Project Details")
+    cy.get('[style="box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 9px; border-radius: 20px; padding: 20px;"] > :nth-child(3) > .MuiFormControl-root > .MuiInputBase-root').type("Promooting Brand");
+    cy.get(':nth-child(7) > :nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
+    cy.log("Added Project Details");
+
+    cy.log("STEP3: payout details");
+    cy.get('[style="width: 100%;"] > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').click();
+    cy.get('#menu-payment_type > .MuiPaper-root > .MuiList-root > .MuiButtonBase-root').click();
+    cy.get(':nth-child(2) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type('2');
+    cy.get(':nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
+
+
+    cy.log('STEP4: How to perfrom')
+    cy.get('.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiOutlinedInput-adornedEnd')
+      .click()
+      .type('promote brand');
+    cy.get('.MuiInputBase-root > .MuiButtonBase-root').click();
+    cy.get(':nth-child(7) > :nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
+    cy.wait(10000);
+
+
+
+
+    cy.log("Add Question")
+
+    cy.get(':nth-child(2) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type("Whats your first car?");
+    cy.wait(10000);
+    cy.get(':nth-child(4) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type("Tesla")
+    cy.get('[style="padding-bottom: 0px;"] > .MuiGrid-item > .MuiButtonBase-root').click();
+    cy.get(':nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
+
+    cy.wait(10000)
+
+
+    cy.get('.MuiInputBase-root').type("bounce brand promoting");
+
+
+    cy.get(':nth-child(7) > :nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click({ force: true });
+
+    cy.get('#outlined-error').click();
+
+
+    cy.get('[data-value="Tamil"]').click();
+    cy.get(':nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
+
+
+    it("Logout Tes", () => {
+
+      cy.get("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > div:nth-child(11) > a:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)").click();
+      cy.get("body div[role='presentation'] div[role='presentation'] button:nth-child(1)").click();
+
+
+    })
+
+
+
+
+
+
   })
 
 })

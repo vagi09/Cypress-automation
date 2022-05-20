@@ -23,3 +23,4 @@ import './commands'
 after(() => {
   cy.task('generateReport')
 })
+require('cypress-xpath')
