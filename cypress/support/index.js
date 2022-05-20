@@ -18,3 +18,8 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+// cypress/plugin/index.js
+
+after(() => {
+  cy.task('generateReport')
+})
