@@ -1,5 +1,8 @@
 {
-  
+ "url": "https://business.dev.task-mo.com/", 
   "email": "admin@taskmo.com",
-  "password": "123456"
+  "password": "123456",
+  "invalidEmail": "vageesha.m@taskmo.com",
+  "invalidPw":"1234567"
+
 }
