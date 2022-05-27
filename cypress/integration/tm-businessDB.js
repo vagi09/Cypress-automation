@@ -21,20 +21,32 @@ describe('TM Business Dashbaord Test', () => {
     cy.document().its('contentType').should('eq', 'text/html')
     cy.log("Launched Business Dashbaord URL");
     cy.get(':nth-child(2)>.MuiFormControl-root >.MuiInputBase-root > #filled-basic').type(signIndata.email);
-    //console.log('example.json',this.data.email);
 
     cy.get(':nth-child(3)>.MuiFormControl-root >.MuiInputBase-root > #filled-basic').type(signIndata.password);
     cy.get(':nth-child(4) > .MuiButtonBase-root').click();
     cy.log("successfully Logged in")
   });
 
-  after("Logout Test", () => {
+  // afterEach("Logout Test", () => {
 
-    cy.get("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > div:nth-child(11) > a:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)").click();
-    cy.get("body div[role='presentation'] div[role='presentation'] button:nth-child(1)").click();
+  //   cy.get("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > div:nth-child(11) > a:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)").click();
+  //   cy.get("body div[role='presentation'] div[role='presentation'] button:nth-child(1)").click();
 
 
-  })
+  // })
+
+  it('Logging in with Invalid credentilas',()=>{
+
+    cy.visit(signIndata.url);
+    cy.title().should('eq', 'Taskmo Business Admin Dashboard');
+    cy.document().its('contentType').should('eq', 'text/html')
+    cy.log("Launched Business Dashbaord URL");
+    cy.get(':nth-child(2)>.MuiFormControl-root >.MuiInputBase-root > #filled-basic').type(signIndata.invalidEmail);
+
+    cy.get(':nth-child(3)>.MuiFormControl-root >.MuiInputBase-root > #filled-basic').type(signIndata.invalidPw);
+    cy.get(':nth-child(4) > .MuiButtonBase-root').click();
+
+ });
 
 
   it('Home Page Test', () => {
@@ -48,9 +60,12 @@ describe('TM Business Dashbaord Test', () => {
 
   it('Testing `search` bar in company tab', () => {
     cy.get('[data-testid="BusinessIcon"]').click();
-    cy.get("input[placeholder='Search']").type("Taskmo Software");
-    cy.get('[style="width: 80%; color: rgb(0, 0, 0); border-bottom: none;"] > a').click({ multiple: true });
+    cy.get("input[placeholder='Search']").type("swizz");
+    cy.get('td:nth-child(1) a:nth-child(1)').click({ multiple: true });
     cy.go('back');
+    cy.go('forward');
+    cy.scrollTo('bottom');
+    cy.scrollTo('top');
   });
 
   it('Testing `Company Page` On clicking', () => {
@@ -69,7 +84,7 @@ describe('TM Business Dashbaord Test', () => {
     cy.get('.MuiGrid-container > .MuiButtonBase-root').click();
     cy.get('#demo-simple-select').click()
     cy.get('[data-value="Private Limited"]').click()
-    cy.get('#outlined-basic').type("L01631KA2010PTC096868");
+    cy.get('#outlined-basic').type("L01631KA2010PTC096889");
     cy.get('.MuiInputBase-root > .MuiButtonBase-root').click();
     cy.scrollTo('bottom', { ensureScrollable: false })
     cy.get('.MuiGrid-justify-content-xs-flex-end > [type="submit"]').click();
@@ -82,7 +97,7 @@ describe('TM Business Dashbaord Test', () => {
     cy.get('.MuiGrid-container > .MuiButtonBase-root').click();
     cy.get('#demo-simple-select').click()
     cy.get('[data-value="Private Limited"]').click()
-    cy.get('#outlined-basic').type("L01631KA2010PTC09669");
+    cy.get('#outlined-basic').type("L01631KA2010PTC09698");
     cy.get('.MuiInputBase-root > .MuiButtonBase-root').click();
     
     //**Add company Details */
@@ -126,7 +141,7 @@ describe('TM Business Dashbaord Test', () => {
     cy.get(':nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root > .MuiOutlinedInput-root > #account_select')
       .click({ force: true })
     cy.get('#account_select-option-5').click();
-    cy.get(':nth-child(3) > .MuiAutocomplete-root > .MuiFormControl-root > .MuiOutlinedInput-root > #account_select').click();
+    cy.get(':nth-child(3) > .MuiAutocomplete-root > .MuiFormControl-root > .MuiOutlinedInput-root > #account_select').click({multiple:true});
     cy.get('#account_select-option-0').click();
     cy.get(':nth-child(3) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type('Bounce');
     cy.get(':nth-child(4) > .MuiFormControl-root > .MuiInputBase-root > #outlined-basic').type('Bengaluru');
@@ -134,7 +149,7 @@ describe('TM Business Dashbaord Test', () => {
     cy.get('.MuiGrid-grid-sm-4 > .MuiGrid-root > .MuiButtonBase-root').click();
 
     cy.log("STEP 2: Add Project Details")
-    cy.get('[style="box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 9px; border-radius: 20px; padding: 20px;"] > :nth-child(3) > .MuiFormControl-root > .MuiInputBase-root').type("Promooting Brand");
+    cy.get('[style="box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 9px; border-radius: 20px; padding: 20px;"] > :nth-child(3) > .MuiFormControl-root > .MuiInputBase-root').type("Promoting Brand");
     cy.get(':nth-child(7) > :nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
     cy.log("Added Project Details")
 
@@ -177,6 +192,6 @@ describe('TM Business Dashbaord Test', () => {
 
     cy.get('[data-value="Tamil"]').click();
     cy.get(':nth-child(4) > .MuiGrid-root > .MuiButtonBase-root').click();
-  })
+  });
 
-})
+});
